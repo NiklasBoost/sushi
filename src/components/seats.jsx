@@ -22,9 +22,25 @@ const Seats = ({seats, setSeats}) => {
   return (
     <>
       {seats.map((seat, i) => (
-        <div key={i}>
-          <div >Stuhl: {seat}</div>
+        <div 
+          style={{
+            display: 'flex', 
+            margin: '10px'}} 
+          key={i}
+        >
+          <div 
+            style={{
+              backgroundColor: seat === 'leer' ?  
+              'lightgreen' 
+                : 
+              'lightcoral', 
+              padding: '3px 8px'
+            }}
+          >
+            Stuhl: {seat}
+          </div>
           <button 
+            style={{marginLeft: '5px'}}
             onClick={() => sendAway(i)}
           >
             wegschicken

@@ -16,7 +16,7 @@ const UserInput = ({seats, setSeats}) => {
       if(counter === groupSize) {
         addNewGroup(index);
       }
-    })
+    });
   }
 
   function addNewGroup(groupPosition) {
@@ -28,7 +28,7 @@ const UserInput = ({seats, setSeats}) => {
           return newSeats;
         })
       } 
-    })
+    }) 
   }
 
 
