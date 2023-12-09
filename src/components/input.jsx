@@ -6,29 +6,53 @@ const UserInput = ({seats, setSeats}) => {
 
   
   function scannSeats() {
-    let counter = 0;
-    seats.forEach((seat, index) => {
-      if(seat === 'leer') {
-        counter++;
-      } else (
-        counter = 0
-      )
-      if(counter === groupSize) {
-        addNewGroup(index);
+    let newGroupI = [];
+    let foundSeats = false;
+    
+    seats.forEach((seat, i) => {
+      if(!foundSeats) {
+        if(seat === 'leer') {
+          newGroupI.push(i)
+        } else {
+          newGroupI = [];
+        }
+        if(groupSize === newGroupI.length) {
+          foundSeats = true;
+          addNewGroup(newGroupI);
+        } 
       }
-    });
+    })
+
+    if(!foundSeats && seats[0] === 'leer' && seats[seats.length - 1] === 'leer') {
+      let i = 0;
+      while(seats[i] === 'leer') {
+        newGroupI.push(i)
+        i++;
+      }
+
+      i = seats.length;
+      while(seats[i] === 'leer') {
+        newGroupI.push(i)
+        i--;
+      }
+
+      if(groupSize === newGroupI.length) {
+        foundSeats = true;
+        addNewGroup(newGroupI);
+      } 
+    }
   }
 
-  function addNewGroup(groupPosition) {
-    seats.forEach((seat, index) => {
-      if(index <= groupPosition && index > groupPosition - groupSize) { 
-        setSeats((prevSeats) => {
-          const newSeats = [...prevSeats];
-          newSeats[index] = groupName;
-          return newSeats;
-        })
-      } 
-    }) 
+  function addNewGroup(positionIndexes) {
+    setSeats((prevSeats) => {
+      return prevSeats.map((seat, index) => {
+        if(positionIndexes.includes(index)) {
+          return groupName;
+        } else {
+          return seat;
+        }
+      })
+    })
   }
 
 
