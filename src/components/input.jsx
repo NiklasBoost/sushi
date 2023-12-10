@@ -25,13 +25,13 @@ const UserInput = ({seats, setSeats}) => {
 
     if(!foundSeats && seats[0] === 'leer' && seats[seats.length - 1] === 'leer') {
       let i = 0;
-      while(seats[i] === 'leer') {
+      while(seats[i] === 'leer' && groupSize > newGroupI.length) {
         newGroupI.push(i)
         i++;
       }
 
       i = seats.length;
-      while(seats[i] === 'leer') {
+      while(seats[i] === 'leer' && groupSize > newGroupI.length) {
         newGroupI.push(i)
         i--;
       }
