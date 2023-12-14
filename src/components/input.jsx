@@ -1,10 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const UserInput = ({seats, setSeats}) => {
   const [groupName, setGroupName] = useState('');
   const [groupSize, setGroupSize] = useState(0);
+  const [groupNameByUser, setGroupNameByUser] = useState(false);
 
-  
+  useEffect(() => {
+    if(!(groupName.includes('Person') || groupName.includes('Personen-Gruppe'))) {
+      setGroupNameByUser(true)
+    }
+    console.log(groupNameByUser)
+  }, [groupName])
+
+
+  useEffect(() => {
+    if(!groupNameByUser || !groupName) {
+      if(groupSize == 1) {
+        setGroupName('1 Person')
+        setGroupNameByUser(false);
+      } else if(groupSize > 1) {
+        setGroupName(groupSize + " Personen-Gruppe")
+        setGroupNameByUser(false);
+      } else {
+        setGroupName("")
+        setGroupNameByUser(false);
+      }
+    }
+    console.log(groupNameByUser)
+  }, [groupSize])
+
+
   function scannSeats() {
     let newGroupI = [];
     let foundSeats = false;
@@ -53,6 +78,8 @@ const UserInput = ({seats, setSeats}) => {
         }
       })
     })
+    setGroupName("")
+    setGroupNameByUser(false);
   }
 
 
