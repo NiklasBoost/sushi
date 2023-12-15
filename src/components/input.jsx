@@ -9,7 +9,6 @@ const UserInput = ({seats, setSeats}) => {
     if(!(groupName.includes('Person') || groupName.includes('Personen-Gruppe'))) {
       setGroupNameByUser(true)
     }
-    console.log(groupNameByUser)
   }, [groupName])
 
 
@@ -26,7 +25,6 @@ const UserInput = ({seats, setSeats}) => {
         setGroupNameByUser(false);
       }
     }
-    console.log(groupNameByUser)
   }, [groupSize])
 
 
@@ -69,17 +67,23 @@ const UserInput = ({seats, setSeats}) => {
   }
 
   function addNewGroup(positionIndexes) {
-    setSeats((prevSeats) => {
-      return prevSeats.map((seat, index) => {
-        if(positionIndexes.includes(index)) {
-          return groupName;
-        } else {
-          return seat;
-        }
+    if(groupName) {
+      setSeats((prevSeats) => {
+        return prevSeats.map((seat, index) => {
+          if(positionIndexes.includes(index)) {
+            return groupName;
+          } else {
+            return seat;
+          }
+        })
       })
-    })
-    setGroupName("")
-    setGroupNameByUser(false);
+      if(groupNameByUser) {
+        setGroupName("")
+      }
+      setGroupNameByUser(false);
+    } else {
+      alert('Gruppenname darf nicht leer sein');
+    }
   }
 
 
